@@ -7,7 +7,7 @@ RF24 radio(7, 8); // CE, CSN
 const byte address[6] = "00001";
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   radio.begin();
   radio.openReadingPipe(0, address);
   radio.setPALevel(RF24_PA_MIN);
@@ -16,8 +16,9 @@ void setup() {
 
 void loop() {
   if (radio.available()) {
-    char text[32] = "";
-    radio.read(&text, sizeof(text));
-    Serial.println(text);
+    Serial.println("radio available");
+    String receivedText = "";
+    radio.read(&receivedText, sizeof(receivedText));
+    Serial.println(receivedText);
   }
 }
